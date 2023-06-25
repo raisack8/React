@@ -68,7 +68,11 @@ const StageArea = (props) => {
           }else{
             // 0625とりあえず次はこのelse節を表示すること。
             // 今は表示されていない
-            <Section section={sections[0]} key={sections[0].id}/>
+            // 上で宣言したtimeListに持ち時間の値も取得させて
+            // if節をスキップさせた方がいいか。。
+            return(
+              <Section section={sections[0]} key={uuidv4()}/>
+            )
           }
         })}
       </div>
