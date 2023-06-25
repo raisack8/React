@@ -22,6 +22,7 @@ const TimeTableArea = ({stages,sections,wholeTime}) => {
         <StageArea 
           stageInfo={stage} 
           sections={distributeSectionDict[stage.id]} 
+          wholeTime={wholeTime}
           key={stage.id}
         />
       )}
