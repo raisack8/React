@@ -7,13 +7,6 @@ import {timeConvert} from '../utils'
 const StageArea = (props) => {
   const { stageInfo, sections, wholeTime } = props;
   
-  // ここでやること
-  // 時間を見て、どこからSectionCompを書くかを判定する。
-  // 1,時間リストを作る。
-  // 　→予め作られているので再利用する？
-  //　　or 時間Dict? {'9:00':false,'9:05':true,}
-  //       mapでループしてtrueの物はsectionsから探してComp挿入？
-  
   // 時間オブジェクト配列を作る処理
   const  createTimeList=(startTime, endTime)=> {
     const timeList = [];
@@ -52,6 +45,10 @@ const StageArea = (props) => {
   let timeList = createTimeList(wholeTime.start,wholeTime.end);
   timeList = checkStartTime(timeList);
 
+  let sectionIndex = -1;
+  let allottedTime = 0;
+  let sectionStartFlag = false;
+
   return (
     <div className=''>
       <div key={stageInfo.id}
@@ -62,17 +59,32 @@ const StageArea = (props) => {
         </div>
         {timeList.map((time)=>{
           if(!time.flag){
+            if(sectionStartFlag){
+              allottedTime = allottedTime-5;
+              if(allottedTime<0){
+                sectionStartFlag=false;
+              }
+              return (
+              <p key={uuidv4()}>---ここをnullに---</p>
+              // nullにした分をSectionの方で埋める。
+              // 持ち時間を見て余白を作成
+              )
+            }
             return (
               <p key={uuidv4()}>------------{time.time}</p>
             )
           }else{
-            // 0625とりあえず次はこのelse節を表示すること。
-            // 今は表示されていない
-            // 上で宣言したtimeListに持ち時間の値も取得させて
-            // if節をスキップさせた方がいいか。。
-            return(
-              <Section section={sections[0]} key={uuidv4()}/>
-            )
+            sectionIndex++;
+            if(sectionIndex <= sections.length-1){
+              allottedTime = sections[sectionIndex].allotted_time;
+              sectionStartFlag = true;
+
+              console.log(allottedTime+" , "+sections[sectionIndex].artist_name);
+
+              return(
+                <Section section={sections[sectionIndex]} key={uuidv4()}/>
+                )
+            }
           }
         })}
       </div>
