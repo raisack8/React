@@ -56,7 +56,7 @@ const TimeLine = ({wholeTime}) => {
         return (
           <div
           key={index}
-          className={`${textStyle} ${textSize} h-6 flex items-center justify-end pr-2`}
+          className={`${textStyle} ${textSize} mt-1 h-6 flex items-center justify-end pr-2`}
           >
             {formattedTime}:{minutes}
           </div>

@@ -64,14 +64,12 @@ const StageArea = (props) => {
               if(allottedTime<0){
                 sectionStartFlag=false;
               }
-              return (
-              <p key={uuidv4()}>---ここをnullに---</p>
-              // nullにした分をSectionの方で埋める。
-              // 持ち時間を見て余白を作成
-              )
+              return null;
             }
             return (
-              <p key={uuidv4()}>------------{time.time}</p>
+              <p className='text-gray-300 text-center' key={uuidv4()}>
+                ---------------------------------
+                </p>
             )
           }else{
             sectionIndex++;
