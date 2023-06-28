@@ -8,6 +8,8 @@ import TestArea from "./Test/TestArea"
 import ErrorModal from "./CmnComponents/ErrorModal"
 import TimeLine from "./TiteComponents/TimeLine";
 import axios from "axios"
+import CreateBtn from "./CreateBtn";
+import { useSelector } from "react-redux";
 
 // import Api from "./Api";
 
@@ -39,9 +41,11 @@ function getPosts() {
       }).catch(error => setError(error))
   }
     
+  const count = useSelector((state)=>state.sectionList.value);
   // http://127.0.0.1:8000/api/api/
   return (
     <div className="p-16">
+      <div>{count}</div>
       {/* 思うようなモーダルエラーメッセージを作成できない... */}
       <ErrorModal isVisibled={true}/>
       {/* <TestArea wholeTime={wholeTime}></TestArea> */}
@@ -50,6 +54,10 @@ function getPosts() {
         {/* StageとSectionのモデルの取得に成功。あとは、ステージ毎に横展開して、Sectionを振り分ける。! */}
         <TimeLine wholeTime={wholeTime}/>
         <TimeTableArea stages={stages} sections={sections} wholeTime={wholeTime}/>
+      </div>
+      <div className="fixed bottom-12 right-12">
+        {/* ボタンの内容 */}
+        <CreateBtn></CreateBtn>
       </div>
     </div>
   );

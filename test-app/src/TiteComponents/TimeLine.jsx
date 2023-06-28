@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 
 const TimeLine = ({wholeTime}) => {
   
@@ -35,7 +36,6 @@ const TimeLine = ({wholeTime}) => {
   return (
     <>
     <div>
-      <div className='h-16'></div>
       <div>
       {timeLine.map((time, index) => {
         const hours = time.split(':')[0];

@@ -61,13 +61,13 @@ const StageArea = (props) => {
           if(!time.flag){
             if(sectionStartFlag){
               allottedTime = allottedTime-5;
-              if(allottedTime<0){
+              if(allottedTime<=0){
                 sectionStartFlag=false;
               }
               return null;
             }
             return (
-              <p className='text-gray-300 text-center' key={uuidv4()}>
+              <p className='mt-1 h-6 text-gray-300 text-center' key={uuidv4()}>
                 ---------------------------------
                 </p>
             )
@@ -77,8 +77,7 @@ const StageArea = (props) => {
               allottedTime = sections[sectionIndex].allotted_time;
               sectionStartFlag = true;
 
-              console.log(allottedTime+" , "+sections[sectionIndex].artist_name);
-
+              allottedTime = allottedTime-5;
               return(
                 <Section section={sections[sectionIndex]} key={uuidv4()}/>
                 )
