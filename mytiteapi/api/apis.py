@@ -32,6 +32,21 @@ class TestApi(ListCreateAPIView):
     # 認証
     permission_classes = []
 
+    def get(self, request, *args, **kwargs):
+        # リクエストからGETパラメータを取得
+        param_value = request.query_params.get('id')
+        serializer = self.serializer_class(self.get_queryset(), many=True)
+        print(param_value)
+        return Response(serializer.data)
+    def post(self, request, *args, **kwargs):
+        # POSTリクエストで送信されたデータを取得する
+        my_data = request.data
+        print("--------------- POST")
+        print(my_data)
+        # 7/4 レスポンスとして、受け取った配列のidに一致するSectionデータを
+        # 返したい。オブジェクトを作成して返す。for?
+        return Response({"message": my_data})
+        
 class StageApi(ListCreateAPIView):
     '''TestApiで取得出来そう'''
     # 対象とするモデルのオブジェクトを定義

@@ -1,11 +1,25 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import state from './redux/state';
+import React, { useContext } from 'react';
+import MyContext from '.';
+import axios from 'axios';
 
 const CreateBtn = () => {
-  const createMyTite=()=>{
-    console.log("ここにどのSectionを選択しているのかを調べる")
-  }
+
+  const contextData = useContext(MyContext)
+  const createMyTite=async()=>{
+    try {
+      const dataToSend = {
+        id: contextData.sectionData
+      };
+      // POSTリクエストを送信
+      const response = await axios.post('http://127.0.0.1:8000/api/api/', dataToSend);
+
+      // レスポンスをログに表示
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error sending POST request:', error);
+    }
+  };
+
   return (
     <div>
       <button type="button" 
@@ -14,7 +28,7 @@ const CreateBtn = () => {
           focus:ring-4 focus:outline-none focus:ring-blue-300 
           font-medium rounded-full text-sm p-2.5 text-center 
           inline-flex items-center"
-        onClick={createMyTite}>
+        onClick={()=>createMyTite()}>
         <span className='p-2 text-xl'>GO</span>
       </button>
       <button >Push</button>

@@ -1,21 +1,33 @@
-import React from 'react';
+import React,  {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-import { Provider } from 'react-redux';
-import {store} from "./redux/store"
+// useContext 選択しているセクションIDを配列で保持する
+const contextData = {
+  sectionData: [],
+  setSection: (val) => {
+    // sectionDataの中にvalが存在しなかったら追加、存在していたら削除
+    if (contextData.sectionData.includes(val)) {
+      contextData.sectionData = contextData.sectionData.filter(
+        item => item !== val
+      );
+    } else {
+      contextData.sectionData.push(val);
+    }
+  }
+};
+const MyContext = createContext(contextData);
 
 // public>index.htmlに紐づいている
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // 厳格。バグを厳しく見てくれる
-  <React.Fragment>
-    {/* Appを囲うことでアプリの全体で使用できる */}
-    <Provider store={store}>
-    {/* Appだけをレンダー */}
+  <MyContext.Provider value={contextData}>
+    <React.Fragment>
       <App />
-    </Provider>
-  </React.Fragment>
+    </React.Fragment>
+  </MyContext.Provider>
 );
 
+export default MyContext;

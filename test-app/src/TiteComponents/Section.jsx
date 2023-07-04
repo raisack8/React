@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { add } from '../redux/state';
+import React, { useState,useContext } from 'react';
+// import { add } from '../redux/state';
+import MyContext from '..';
 
 const Section = (props) => {
   const { section } = props;
 
-  const dispatch = useDispatch();
   const [clickFlg, setClickFlg] = useState(false);
+  const contextVal = useContext(MyContext)
 
-  // const secListDispatch = () => {
-  //   dispatch(add());
-  // };
-
-  const toggleClickFlg = () => {
+  // Sectionをクリックしたときの処理
+  const toggleClickFlg = (id) => {
     setClickFlg(!clickFlg);
-    setTimeout(() => {
-      dispatch(add(section.id));
-    }, 0);
+    // Contextに値を登録する
+    contextVal.setSection(id);
   };
 
 
@@ -74,7 +70,7 @@ const Section = (props) => {
 
   
   return (
-    <div onClick={toggleClickFlg}>
+    <div onClick={()=>toggleClickFlg(section.id)}>
       {repeatedElements}
     </div>
   );
