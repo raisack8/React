@@ -40,12 +40,21 @@ class TestApi(ListCreateAPIView):
         return Response(serializer.data)
     def post(self, request, *args, **kwargs):
         # POSTリクエストで送信されたデータを取得する
-        my_data = request.data
+        data = request.data
         print("--------------- POST")
-        print(my_data)
-        # 7/4 レスポンスとして、受け取った配列のidに一致するSectionデータを
-        # 返したい。オブジェクトを作成して返す。for?
-        return Response({"message": my_data})
+        # POSTで送られてきたidに紐づくSectionを返す。
+        queryset = SectionModel.objects.filter(id__in=data["id"])
+        print(queryset)
+        res_dict = {}
+        for i,query in enumerate(queryset):
+            res_dict[i]={
+                'id':query.id,
+                'artist_name':query.artist_name,
+                'start_time':query.start_time,
+                'allotted_time':query.allotted_time,
+            }
+            
+        return Response({"message": res_dict})
         
 class StageApi(ListCreateAPIView):
     '''TestApiで取得出来そう'''
