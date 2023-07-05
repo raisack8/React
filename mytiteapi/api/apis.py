@@ -48,10 +48,21 @@ class TestApi(ListCreateAPIView):
         res_dict = {}
         for i,query in enumerate(queryset):
             res_dict[i]={
-                'id':query.id,
-                'artist_name':query.artist_name,
-                'start_time':query.start_time,
-                'allotted_time':query.allotted_time,
+            'id':query.id,
+            'fes_id':query.fes_id.id,
+            'appearance_date':query.appearance_date,
+            'stage':query.stage.id,
+            'start_time':query.start_time,
+            'allotted_time':query.allotted_time,
+            'live_category':query.live_category.id,
+            'artist_name':query.artist_name,
+            'apparence_flg':query.apparence_flg,
+            'change_time_flg':query.change_time_flg,
+            'other1':query.other1,
+            'other2':query.other2,
+            'official_url':query.official_url,
+            'twitter_id':query.twitter_id,
+            'insta_id':query.insta_id,
             }
             
         return Response({"message": res_dict})

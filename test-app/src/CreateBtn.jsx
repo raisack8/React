@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import MyContext from '.';
 import axios from 'axios';
+import { useNavigate  } from 'react-router-dom';
 
-const CreateBtn = () => {
+const CreateBtn = ({wholeTime}) => {
 
   const contextData = useContext(MyContext)
+  const navigate  = useNavigate ();
   const createMyTite=async()=>{
     try {
       const dataToSend = {
@@ -14,7 +16,15 @@ const CreateBtn = () => {
       const response = await axios.post('http://127.0.0.1:8000/api/api/', dataToSend);
 
       // レスポンスをログに表示
-      console.log(response.data);
+      if(Object.keys(response.data.message).length===0){
+        alert("1つ以上選んで下さい。")
+        return;
+      }
+      navigate('/test',{state: {
+        'data':response.data,
+        'wholeTime':wholeTime
+      }});
+
     } catch (error) {
       console.error('Error sending POST request:', error);
     }
