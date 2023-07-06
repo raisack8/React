@@ -39,7 +39,9 @@ const Home = () => {
       <ErrorModal isVisibled={true}/>
       <span className="border border-red-500 bg-red-300">{error.message}</span>
       <div className="flex">
-        <TimeLine wholeTime={wholeTime}/>
+        <div style={{"padding-top":"4.0rem"}}>
+          <TimeLine wholeTime={wholeTime}/>
+        </div>
         <TimeTableArea stages={stages} sections={sections} wholeTime={wholeTime}/>
       </div>
       <div className="fixed bottom-12 right-12">

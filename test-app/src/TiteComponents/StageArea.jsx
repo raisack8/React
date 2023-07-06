@@ -11,13 +11,10 @@ const StageArea = (props) => {
   const  createTimeList=(startTime, endTime)=> {
     const timeList = [];
     let currentTime = new Date(startTime);
-  
     while (currentTime <= endTime) {
       timeList.push({ time: timeConvert(currentTime), flag: false });
-  
       currentTime.setMinutes(currentTime.getMinutes() + 5);
     }
-  
     return timeList;
   }
 
