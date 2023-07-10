@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 from django.core import serializers
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
+from .operates.my_tite import MyTiteGenerator
+
 import json
 import sys
 '''
@@ -31,41 +33,15 @@ class TestApi(ListCreateAPIView):
     serializer_class = SectionModelSerializer
     # 認証
     permission_classes = []
-
     def get(self, request, *args, **kwargs):
         # リクエストからGETパラメータを取得
-        param_value = request.query_params.get('id')
-        serializer = self.serializer_class(self.get_queryset(), many=True)
-        print(param_value)
-        return Response(serializer.data)
+        getobj = MyTiteGenerator.get(self, request)
+        return Response(getobj)
+    
     def post(self, request, *args, **kwargs):
         # POSTリクエストで送信されたデータを取得する
-        data = request.data
-        print("--------------- POST")
-        # POSTで送られてきたidに紐づくSectionを返す。
-        queryset = SectionModel.objects.filter(id__in=data["id"])
-        print(queryset)
-        res_dict = {}
-        for i,query in enumerate(queryset):
-            res_dict[i]={
-            'id':query.id,
-            'fes_id':query.fes_id.id,
-            'appearance_date':query.appearance_date,
-            'stage':query.stage.id,
-            'start_time':query.start_time,
-            'allotted_time':query.allotted_time,
-            'live_category':query.live_category.id,
-            'artist_name':query.artist_name,
-            'apparence_flg':query.apparence_flg,
-            'change_time_flg':query.change_time_flg,
-            'other1':query.other1,
-            'other2':query.other2,
-            'official_url':query.official_url,
-            'twitter_id':query.twitter_id,
-            'insta_id':query.insta_id,
-            }
-            
-        return Response({"message": res_dict})
+        postobj = MyTiteGenerator.post(self, request)
+        return Response(postobj)
         
 class StageApi(ListCreateAPIView):
     '''TestApiで取得出来そう'''

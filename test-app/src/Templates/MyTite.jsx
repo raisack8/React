@@ -8,24 +8,21 @@ const MyTite = () => {
   const data = location.state;
 
 
-
-
   const testData = [
-    {id: 1, appearance_date: "2022-08-03", start_time: '1899-12-30T13:05:00Z', allotted_time: 15, artist_name: 'あびゅるむ',stage_id:1}
+    {id: 1, appearance_date: "2022-08-03", start_time: '1899-12-30T13:05:00Z', allotted_time: 15, artist_name: 'あびゅるむ',stage:1},
+    {id: 2, appearance_date: "2022-08-03", start_time: '1899-12-30T13:30:00Z', allotted_time: 15, artist_name: 'あびゅるむ',stage:1},
     ]
-  const stageTest = [{id: 1, stage_id: 1, name: 'MyTite1', place: 'お台場', color: '#999999'}]
-
-    
-  console.log(data.data);
-  console.log(data.wholeTime);
-
+  const stageTest = [{id: 0, name: 'MyTite1', place: 'お台場', color: '#999999'}]
+  console.log((data.data.message));
+  console.log(testData);
 
   return (
     <>
-      <div>{JSON.stringify(data)}</div>
       <div className="flex">
-        <TimeLine wholeTime={data.wholeTime}/>
-        <TimeTableArea stages={stageTest} sections={testData} wholeTime={data.wholeTime}/>
+        <div style={{"paddingTop":"4.0rem"}}>
+          <TimeLine wholeTime={data.wholeTime}/>
+        </div>
+        <TimeTableArea stages={stageTest} sections={data.data.message} wholeTime={data.wholeTime}/>
 
       </div>
     </>

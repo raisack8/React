@@ -7,7 +7,7 @@ import MyContext from '..'
 import axios from "axios"
 
 const Home = () => {
-  
+
   // Sectionの値
   const[sections, setSections] = useState([]);
   // Stagesの値
@@ -19,14 +19,14 @@ const Home = () => {
   }
   useEffect(() => {
     getPosts();
-  }, []); 
+  }, []);
 
   // DjangoのAPIと通信するメソッド
   function getPosts() {
       axios.get('http://127.0.0.1:8000/api/api/')
       .then(res1 => {
         setSections(res1.data);
-        
+
         axios.get('http://127.0.0.1:8000/api/stages/')
         .then(res2 => {
           setStages(res2.data);
@@ -39,7 +39,7 @@ const Home = () => {
       <ErrorModal isVisibled={true}/>
       <span className="border border-red-500 bg-red-300">{error.message}</span>
       <div className="flex">
-        <div style={{"padding-top":"4.0rem"}}>
+        <div style={{"paddingTop":"4.0rem"}}>
           <TimeLine wholeTime={wholeTime}/>
         </div>
         <TimeTableArea stages={stages} sections={sections} wholeTime={wholeTime}/>
