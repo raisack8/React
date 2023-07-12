@@ -14,10 +14,15 @@ const CreateBtn = ({wholeTime}) => {
       };
       // POSTリクエストを送信
       const response = await axios.post('http://127.0.0.1:8000/api/api/', dataToSend);
-
-      // レスポンスをログに表示
-      if(Object.keys(response.data.message).length===0){
-        alert("1つ以上選んで下さい。")
+      console.log(response)
+      // 1つも選択していなかったらエラー
+      if(Object.keys(response.data.message.myTiteSections).length===0){
+        alert(response.data.message.errorMsg)
+        return;
+      }
+      // エラーメッセージが返されたら表示してreturn
+      if(response.data.message.errorMsg!==""){
+        alert(response.data.message.errorMsg)
         return;
       }
       navigate('/test',{state: {
@@ -26,6 +31,7 @@ const CreateBtn = ({wholeTime}) => {
       }});
 
     } catch (error) {
+      alert("システムエラーが発生しました")
       console.error('Error sending POST request:', error);
     }
   };
