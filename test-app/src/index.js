@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+// GCPの接続
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  const name = process.env.NAME || 'World';
+  res.send(`Hello ${name}!`);
+});
+
+const port = parseInt(process.env.PORT) || 8080;
+app.listen(port, () => {
+  console.log(`helloworld: listening on port ${port}`);
+});
+
 // useContext 選択しているセクションIDを配列で保持する
 const contextData = {
   sectionData: [],
