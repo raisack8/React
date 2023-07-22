@@ -1,0 +1,22 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./mytiteapi
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./mytiteapi:/app
+
+  front:
+    build:
+      context: ./test-app/
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./test-app/build:/usr/src/app/build
+    command: sh -c "cd /usr/src/app && npm start"
+    ports:
+      - "3000:3000"
